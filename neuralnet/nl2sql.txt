@@ -1,1 +1,55 @@
-
+Покажи все записи	select * from sport s 
+Сколько записей в таблице	select count(*) from sport s 
+Сколько уникальных подсекций	select count(distinct subsection) from sport s 
+Сколько укниальных соревнований	select count(distinct title) from sport s
+Какие уникальные подсекции	select distinct subsection from sport s
+Какие уникальные соревнования	select distinct title from sport s
+Сколько в серднем участников соревнований	select avg(participants) from sport s
+Какое минимальное количетсво участников в соревнованиях	select max(participants) from sport s
+Какое макисмальное количество участников соревнований	select min(participants) from sport s
+Какие мероприятия были с макисмальным количеством участнков	select * from sport s2 where participants = (select max(participants) from sport s) 
+Какие мероприятия были с минимальным количествои участников	select * from sport s2 where participants = (select min(participants) from sport s)
+Какая минимальная дата начала соревнований	select min(start) from sport s
+Какая макисмальная дата начала соревнований	select max(start) from sport s
+Сколько соревнований проходит каждый год	select date_part('year', "start") y, count(*) from sport s group by y
+Самый популярный адрес для организации соревнований	select address, count(*) c from sport s group by address order by c desc limit 1
+Топ-10 популярных адресов для организации соревнований	select address, count(*) c from sport s group by address order by c desc limit 10
+Какие адреса где были соревнования лишь один раз	select * from (select address, count(*) c from sport s group by address) s  where c = 1
+Сколько дней идут самые длинные соревнования	select max(stop - "start")  from sport s 
+Какие самые продолжительные соревнования	select *, (stop - "start") as l from sport s order by l desc limit 1
+Какие названия соревнований существуют	select distinct title from sport s
+Какие виды спорта существуют	select distinct section from sport s 
+Сколько мероприятий проходит для каждого вида спорта	select section, count(*) from sport s group by "section" 
+Вид спорта с наибольшем количеством соревнований	select section, count(*) c from sport s group by "section" order by c desc limit 1
+Вид спорта с самым большим количеством участников сумарно	select section, sum(participants) c from sport s group by "section" order by c desc limit 1
+Вид спорта с самым большим количеством участников в среднем	select section, avg(participants) c from sport s group by "section" order by c desc limit 1
+Самый популярный месяц в году для проведения соревнований	select date_part('month', "start") as m, count(*) as c from sport s group by m order by c desc limit 1
+Сколько соревнований проходит каждый месяц	select date_part('month', "start")||'-'||date_part('year', "start") as m, count(*) from sport s group by m
+Сколько кубков проходит каждый год	select date_part('year', "start") as m, count(*) as c from sport s2  where title like '%кубок%' group by m
+Сколько чемпионатов проходит каждый год	select date_part('year', "start") as m, count(*) as c from sport s2  where title like '%чемпионат%' group by m
+Самое редкое название мероприятия	select title, count(*) as c from sport group by title order by c asc limit 1 
+Самое популярное название мероприятя	select title, count(*) as c from sport group by title order by c desc limit 1 
+Какие мероприятия проводились не в Росссии	select * from sport s where address not like '%Россия%'
+Самая популярная страна кроме Россиии	select split_part(address, ',', 1) as country, count(*) as c from sport s where address not like '%Россия%' group by country order by c desc limit 1
+Какая самая редкая страна	select split_part(address, ',', 1) as country, count(*) as c from sport s where address not like '%Россия%' group by country order by c asc limit 1
+Какое самое популярное описание	select description , count(*) as c from sport group by description order by c desc limit 1 
+Какое самое популярное описание за исключением '-'  и ''	select d, count(*) as c from (select trim(description) as d from sport s where description not in ('-', '')) s group by d order by c desc limit 1
+Какой год с наибольшим количеством мероприятий	select date_part('year', "start") as y, count(*) as c from sport s group by y order by y desc limit 1
+Сколько мероприятий проходит в среднем каждый год	select avg(c) from (select date_part('year', "start") as y, count(*) as c from sport s group by y) s
+Сколько мероприятий проходи в среднем каждый месяц	select avg(c) from (select date_part('month', "start")||'-'||date_part('year', "start") as m, count(*) as c from sport s group by m) s
+Какой самый популярный день года для начала соревнований	select date_part('day', "start")||'-'||date_part('month', "start") as m, count(*) as c from sport s group by m order by c desc limit 1
+Какой самый популярный день недели для начала соревнований	select date_part('dow', "start") as m, count(*) as c from sport s group by m order by c desc limit 1 
+Какой год с наибольшим количеством мероприятий в России	select date_part('year', "start") as y, count(*) as c from sport s where address like '%Россия%' group by y order by y desc limit 1
+Какой год с наименьшем количеством мероприятий в Росссии	select date_part('year', "start") as y, count(*) as c from sport s where address like '%Россия%' group by y order by y asc limit 1
+Сколько мероприятий прошло в 2015 году	select count(*) from sport s where start between '01-01-2015' and '31-12-2015'
+Сколько мероприятий прошло с 2010 по 2015 год	select count(*) from sport s where start between '01-01-2010' and '31-12-2015'
+Сколько участников сумарно приняло участие с 2010 по 2015	select sum(participants) from sport s where start between '01-01-2010' and '31-12-2015'
+Сколько участников сумарно приняло участие с 2010 по 2015 не России	select sum(participants) from sport s where start between '01-01-2010' and '31-12-2015' and address like '%Россия%'
+Сколько участников сумарно приняло участие с 2010 по 2015 в России	select sum(participants) from sport s where start between '01-01-2010' and '31-12-2015' and address not like '%Россия%'
+Сколько соревнований проводится 1 января каждого года	select date_part('year', "start") as y, count(*) as c from sport s where date_part('doy', "start") = 1  group by y
+Сколько различных мероприятий существует для каждого вида спорта	select section, count(distinct title) from sport s group by "section" 
+Самый непопулярный месяц для начала проведения мероприятий	select date_part('month', "start") as m, count(*) as c from sport s group by m order by c asc
+Самый популярный день в году для начала проведеняи мероприятий	select date_part('doy', "start") as m, count(*) as c from sport s group by m order by c desc
+Самый непопулярный день в году для начала проведения мероприятий	select date_part('doy', "start") as m, count(*) as c from sport s group by m order by c asc
+В какой день чаще всего заканчиваются мероприятия	select date_part('doy', "stop") as m, count(*) as c from sport s group by m order by c desc
+В какой день реже всего заканчиваются мероприятия	select date_part('doy', "stop") as m, count(*) as c from sport s group by m order by c asc
