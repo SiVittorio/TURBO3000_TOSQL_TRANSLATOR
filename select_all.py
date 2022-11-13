@@ -83,7 +83,7 @@ def normalizator(words):
         else:
             print('Слова нет в модели')
             nrml_words.pop(i)
-            i += 1
+            
     #print(nrml_words)
     return nrml_words
 
