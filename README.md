@@ -20,4 +20,6 @@ pip install json
 
 # Cars
 Также мы придумали очень простенькую табличку и json файл к ней, на нем можно протестировать нашу программу
+
+
 ![image](https://user-images.githubusercontent.com/62559964/201500228-f842714a-1931-412c-acdb-dffde58509a2.png)
