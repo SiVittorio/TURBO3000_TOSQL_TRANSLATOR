@@ -83,7 +83,6 @@ def normalizator(words):
         else:
             print('Слова нет в модели')
             nrml_words.pop(i)
-            
     #print(nrml_words)
     return nrml_words
 
@@ -106,7 +105,7 @@ def select_all_check(string, themes):
     for i in range(len(string)):
         if (similar_max < model.similarity('все_NOUN', string[i])):
             similar_max = model.similarity('все_NOUN', string[i])
-        if ('VERB' in string[i] and model.similarity('показывать_VERB', string[i]) >= 0.1):
+        if ('VERB' in string[i] and model.similarity('показывать_VERB', string[i]) >= 0.2):
             print(model.similarity('показывать_VERB', string[i]))
             verb_check = True
         ####ПРОВЕРКА НА НАЗВАНИЯ СТОЛБЦОВ
