@@ -1,0 +1,1 @@
+{"CategoryCaption":"Дороги и транспорт","VersionDate":"03.09.2022","ItemsCount":5,"Columns":[{"Name":"Type","Caption":"Тип","Visible":true,"Type":"STRING","SubColumns":null},{"Name":"Color","Caption":"Цвет","Visible":true,"Type":"STRING","SubColumns":null},{"Name":"Number","Caption":"Номер автомобиля","Visible":true,"Type":"STRING","SubColumns":null}]}
